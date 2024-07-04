@@ -1,145 +1,135 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:myapp/auth/main_page';
+import 'package:myapp/chinese_culture.dart';
+import 'package:myapp/drawer.dart';// Corrected import name
+import 'package:myapp/greeeting.dart';
+import 'package:myapp/intropinyin.dart';
+import 'package:myapp/practice.dart';
+import 'package:myapp/quiz_page.dart';
+import 'package:myapp/real_conv.dart';
+import 'package:myapp/vocab.dart';
 
-class HomePage extends StatelessWidget {
-  void onAlphabetTap(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => AlphabetPage()),
-    );
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final currentUser = FirebaseAuth.instance.currentUser!;
+  final textController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    createUserDocument();
   }
 
-  void onHelloChinaTap(BuildContext context) {
-    Navigator.push(
+  Future<void> createUserDocument() async {
+    final userDoc = FirebaseFirestore.instance.collection("Users").doc(currentUser.uid);
+    final userSnapshot = await userDoc.get();
+
+    if (!userSnapshot.exists) {
+      await userDoc.set({
+        'email': currentUser.email,
+        'username': 'New User',
+        'bio': 'This is my bio',
+      });
+    }
+  }
+
+  void signOut() async {
+    await FirebaseAuth.instance.signOut();
+    Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => HelloChinaPage()),
+      MaterialPageRoute(builder: (context) => MainPage()),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.pink[50],
       appBar: AppBar(
-        title: Text("HeyChina"),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Center(
-              child: Text(
-                "Unlock Lessons & HSK Tests\nDiscount 60% For New User",
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 12),
-              ),
+        title: const Text("A R D U I N O X"), // Corrected import name
+        centerTitle: true,
+        backgroundColor: Colors.pink[100],
+      ),
+      drawer: MyDrawer(
+        onVocabPageTap: () {
+          Navigator.pop(context);
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const VocabPage()),
+          );
+        },
+        onRealConvTap: () {
+          Navigator.pop(context);
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const RealConv()),
+          );
+        },
+        onPracticeTap: () {
+          Navigator.pop(context);
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const Practice()),
+          );
+        },
+        onQuizPageTap: () {
+          Navigator.pop(context);
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const QuizPage()),
+          );
+        },
+        onChineseCultureTap: () {
+          Navigator.pop(context);
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const ChineseCulture()),
+          );
+        },
+        onSignOut: signOut,
+      ),
+      body: Center(
+        child: Column(
+          children: [
+            Text("Logged in as: ${currentUser.email}"),
+            const SizedBox(height: 50),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const IntroPinyinTonesPage()),
+                );
+              },
+              child: const Text('Intro Pinyin Tones'),
             ),
-          ),
-        ],
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              GestureDetector(
-                onTap: () => onAlphabetTap(context),
-                child: Row(
-                  children: [
-                    Image.asset('lib/assets/alphabet_icon.png', width: 50),
-                    SizedBox(width: 10),
-                    Text(
-                      "The alphabet",
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 20),
-              GestureDetector(
-                onTap: () => onHelloChinaTap(context),
-                child: Row(
-                  children: [
-                    Image.asset('lib/assets/hello_china_icon.png', width: 50),
-                    SizedBox(width: 10),
-                    Text(
-                      "Hello China!",
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 20),
-              Row(
-                children: [
-                  Image.asset('lib/assets/who_am_i_icon.png', width: 50),
-                  SizedBox(width: 10),
-                  Text(
-                    "Who I am?",
-                    style: TextStyle(fontSize: 18),
-                  ),
-                ],
-              ),
-              SizedBox(height: 40),
-              Container(
-                padding: EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Colors.green,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    IconButton(
-                      icon: Icon(Icons.home, color: Colors.white),
-                      onPressed: () {},
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.person, color: Colors.white),
-                      onPressed: () {},
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.chat, color: Colors.white),
-                      onPressed: () {},
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.timer, color: Colors.white),
-                      onPressed: () {},
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.diamond, color: Colors.white),
-                      onPressed: () {},
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const GreetingsCommonPhrasesPage()),
+                );
+              },
+              child: const Text('Greetings & Common Phrases'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const VocabPage()),
+                );
+              },
+              child: const Text('Vocab'),
+            ),
+          ],
         ),
-      ),
-    );
-  }
-}
-
-class AlphabetPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('The Alphabet'),
-      ),
-      body: Center(
-        child: Text('Content for The Alphabet'),
-      ),
-    );
-  }
-}
-
-class HelloChinaPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Hello China!'),
-      ),
-      body: Center(
-        child: Text('Content for Hello China!'),
       ),
     );
   }

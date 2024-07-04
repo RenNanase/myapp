@@ -28,13 +28,13 @@ class MyTextBox extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               //section name
-              Text(sectionName, style:const TextStyle(color: Colors.black54),
+              Text(sectionName, style:TextStyle(color: Colors.black54),
               ),
 
               //edit button
               IconButton(
                   onPressed: onPressed,
-                  icon: const Icon(Icons.settings, color: Colors.black54
+                  icon: Icon(Icons.settings, color: Colors.black54
 
                   ),
               ),

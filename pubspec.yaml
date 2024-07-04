@@ -11,11 +11,13 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.6
-  syncfusion_flutter_pdfviewer: ^23.2.7
+  syncfusion_flutter_pdfviewer: ^20.4.54
   firebase_auth: ^4.16.0
   cloud_firestore: ^4.13.6
   youtube_player_flutter: ^8.1.2
   flutter_inappwebview: ^5.7.2
+  audioplayers: ^6.0.0
+  firebase_core: ^2.3.0
 
 dev_dependencies:
   flutter_test:
@@ -27,6 +29,11 @@ flutter:
 
   assets:
     - lib/assets/fox.png
+    - lib/assets/water.png
+    - lib/assets/rice.png
+    - lib/assets/tea.png
+    - lib/assets/soup.png
+  
 
   fonts:
     - family: NotoSansSC
