@@ -4,19 +4,17 @@ import 'package:myapp/my_list.dart';
 
 
 class MyDrawer extends StatelessWidget {
-  final void Function()? onVocabPageTap;
-  final void Function()? onRealConvTap;
-  final void Function()? onPracticeTap;
+  final void Function()? onVocabularyTap;
   final void Function()? onQuizPageTap;
-  final void Function()? onChineseCultureTap;
+  final void Function()? onMiniGamesTap;
+  final void Function()? onInfographicTap;
   final void Function()? onSignOut;
 
   const MyDrawer({super.key,
-    required this.onVocabPageTap,
-    required this.onRealConvTap,
-    required this.onPracticeTap,
+    required this.onVocabularyTap,
     required this.onQuizPageTap,
-    required this.onChineseCultureTap,
+    required this.onMiniGamesTap,
+    required this.onInfographicTap,
     required this. onSignOut
 
 
@@ -45,37 +43,30 @@ class MyDrawer extends StatelessWidget {
 
         //profile list tile
         MyListTile (
-          icon: Icons.person,
-          text : 'P R O F I L E',
-          onTap: onVocabPageTap,
-        ),
-
-        //profile list tile
-        MyListTile (
-          icon: Icons.description,
-          text : 'A R D U I N O   L E S S O N S',
-          onTap: onRealConvTap,
-        ),
-
-        //profile list tile
-        MyListTile (
-          icon: Icons.description,
-          text : 'T I N K E R C A D   L E S S O N S',
-          onTap: onPracticeTap,
+          icon: Icons.book,
+          text : 'V O C A B U L A R Y',
+          onTap: onVocabularyTap,
         ),
 
         //mini project list tile
         MyListTile (
-          icon: Icons.folder,
-          text : 'M I N I   P R O J E C T S',
+          icon: Icons.quiz,
+          text : 'Q U I Z',
           onTap: onQuizPageTap,
         ),
 
-        //profile list tile
+        //mini games
         MyListTile (
-          icon: Icons.video_collection,
-          text : 'V I D E O   T U T O R I A L',
-          onTap: onChineseCultureTap,
+          icon: Icons.videogame_asset_sharp,
+          text : 'M I N I  G A M E S',
+          onTap: onMiniGamesTap,
+        ),
+
+        //infographic
+        MyListTile (
+          icon: Icons.image,
+          text : 'I N F O G R A P H I C',
+          onTap: onInfographicTap,
         ),
 
       ],

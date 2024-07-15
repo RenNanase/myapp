@@ -61,7 +61,7 @@ class _LoginPageState extends State<LoginPage> {
           Navigator.pop(context); // Close loading dialog
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => HomePage()),
+            MaterialPageRoute(builder: (context) => const HomePage()),
           );
         } else {
           Navigator.pop(context); // Close loading dialog
@@ -94,12 +94,12 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 255, 255, 255),
+      backgroundColor: Colors.pink[50],
       body: SafeArea(
         child: SingleChildScrollView(
           child: Center(
             child: ConstrainedBox(
-              constraints: BoxConstraints(maxWidth: 600), // Limit width for larger screens
+              constraints: const BoxConstraints(maxWidth: 600), // Limit width for larger screens
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Column(
@@ -109,8 +109,8 @@ class _LoginPageState extends State<LoginPage> {
                     const Text(
                       'Mandarin Mastery',
                       style: TextStyle(
-                        fontSize: 30,
-                        fontFamily: 'NotoSansSC',
+                        fontSize: 40,
+                        fontFamily: 'BebasNeue-Regular',
                         fontWeight: FontWeight.bold,
                         color: Color.fromARGB(255, 15, 15, 15),
                       ),
@@ -120,8 +120,8 @@ class _LoginPageState extends State<LoginPage> {
                       'Let\'s Learn Chinese',
                       style: TextStyle(
                         fontSize: 20,
-                        fontFamily: 'NotoSansSC',
-                        color: Color.fromARGB(255, 0, 0, 0),
+                        fontFamily: 'BebasNeue-Regular',
+                          color: Colors.black54,
                       ),
                     ),
                     const SizedBox(height: 30),
@@ -129,41 +129,61 @@ class _LoginPageState extends State<LoginPage> {
                       key: _formKey,
                       child: Column(
                         children: [
-                          TextFormField(
-                            controller: _emailController,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter your email';
-                              }
-                              if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
-                                return 'Please enter a valid email';
-                              }
-                              return null;
-                            },
-                            decoration: InputDecoration(
-                              labelText: 'Email',
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.8,
+                            child: TextFormField(
+                              controller: _emailController,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter your email';
+                                }
+                                if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+                                  return 'Please enter a valid email';
+                                }
+                                return null;
+                              },
+                              decoration: InputDecoration(
+                                hintText: 'Email',
+                                filled: true,
+                                fillColor: Colors.white,
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(color: Colors.white),
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(color: Colors.pink),
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
                               ),
                             ),
                           ),
                           const SizedBox(height: 20),
-                          TextFormField(
-                            controller: _passwordController,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter your password';
-                              }
-                              if (value.length < 6) {
-                                return 'Password must be at least 6 characters';
-                              }
-                              return null;
-                            },
-                            obscureText: true,
-                            decoration: InputDecoration(
-                              labelText: 'Password',
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.8,
+                            child: TextFormField(
+                              controller: _passwordController,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter your password';
+                                }
+                                if (value.length < 6) {
+                                  return 'Password must be at least 6 characters';
+                                }
+                                return null;
+                              },
+                              obscureText: true,
+                              decoration: InputDecoration(
+                                hintText: 'Password',
+                                filled: true,
+                                fillColor: Colors.white,
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(color: Colors.white),
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(color: Colors.pink),
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
                               ),
                             ),
                           ),
@@ -186,7 +206,7 @@ class _LoginPageState extends State<LoginPage> {
                           child: const Text(
                             'Forgot Password',
                             style: TextStyle(
-                              color: Color.fromARGB(255, 220, 0, 0),
+                              color: Colors.pinkAccent,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -197,10 +217,10 @@ class _LoginPageState extends State<LoginPage> {
                     GestureDetector(
                       onTap: signIn,
                       child: Container(
-                        width: double.infinity, // Full-width button
+                        width: MediaQuery.of(context).size.width * 0.8,
                         padding: const EdgeInsets.all(20),
                         decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 220, 0, 0),
+                          color: Colors.pinkAccent,
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: const Center(
@@ -239,7 +259,7 @@ class _LoginPageState extends State<LoginPage> {
                           child: const Text(
                             'Register now',
                             style: TextStyle(
-                              color: Color.fromARGB(255, 220, 0, 0),
+                              color: Colors.pinkAccent,
                               fontWeight: FontWeight.bold,
                             ),
                           ),

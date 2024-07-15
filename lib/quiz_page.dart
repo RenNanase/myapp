@@ -1,154 +1,191 @@
 import 'package:flutter/material.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-
-class QuizPage extends StatelessWidget {
-  const QuizPage({Key? key}) : super (key: key);
-
+class QuizPage extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        scaffoldBackgroundColor: Colors.pink[50],
-      ),
-      home: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          backgroundColor: Colors.pink[100],
-          title: const Text('V I D E O   T U T O R I A L S'),
-          titleSpacing: 0.0,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.pop(context); // Navigate back to the previous screen
-            },
-          ),
-        ),
-        body:  VideoGrid(),
-      ),
-    );
-  }
+  _QuizPageState createState() => _QuizPageState();
 }
 
-class VideoGrid extends StatelessWidget {
-  final List<VideoInfo> videos = [
-    VideoInfo(
-      videoUrl: 'https://youtu.be/cjK1I2KarYU?list=PLeVrdakJu3M43jB2WqKEL4_Hhn94LpOMT',
-      name: 'Making a Paintbox RGB',
+class _QuizPageState extends State<QuizPage> {
+  int _currentIndex = 0;
+  int _score = 0;
+  bool _showScore = false; // Flag to show score after quiz completion
 
-
-    ),
-    VideoInfo(
-      videoUrl: 'https://youtu.be/2oAQ5KoJJU0?list=PLeVrdakJu3M43jB2WqKEL4_Hhn94LpOMT',
-      name: 'Making a Fading LED',
-
-    ),
-    VideoInfo(
-      videoUrl: 'https://youtu.be/qe9_HXo_CPE?list=PLeVrdakJu3M43jB2WqKEL4_Hhn94LpOMT',
-      name: 'Making a Police Siren with a 556 Timer',
-
-    ),
-    VideoInfo(
-      videoUrl: 'https://youtu.be/eIj3fRG-4xk?list=PLeVrdakJu3M43jB2WqKEL4_Hhn94LpOMT',
-      name: 'Making the Harry Potter Theme Song',
-
-    ),
-    // Add more video URLs and info
+  List<Map<String, dynamic>> _questions = [
+    {
+      'question': 'nǐ hǎo',
+      'options': ['Hello! What is your name?', 'Hello', 'Where are you from?'],
+      'correctIndex': 1,
+    },
+    {
+      'question': 'tā míng jiào',
+      'options': ['His name is..', 'Where is the nearest restaurant?', 'How much does it cost?'],
+      'correctIndex': 0,
+    },
+    {
+      'question': 'wǒ hěn hǎo',
+      'options': ['Are you free tomorrow? Let\'s go watch a movie together!', 'What time is it now?', 'I am fine'],
+      'correctIndex': 2,
+    },
+    {
+      'question': 'nǐ chīfàn le ma',
+      'options': ['Have you eaten?', 'What are you doing?', 'Where do you live?'],
+      'correctIndex': 0,
+    },
+    {
+      'question': 'wǒ bù dǒng',
+      'options': ['I don\'t know', 'What did you say?', 'How old are you?'],
+      'correctIndex': 0,
+    },
+    {
+      'question': 'duìbuqǐ',
+      'options': ['Excuse me', 'Thank you', 'Please'],
+      'correctIndex': 0,
+    },
+    {
+      'question': 'wǒ jiào',
+      'options': ['My name is..', 'What\'s your name?', 'How are you?'],
+      'correctIndex': 0,
+    },
+    {
+      'question': 'nǐ shuō shénme',
+      'options': ['What\'s your name?', 'What did you say?', 'Where do you live?'],
+      'correctIndex': 1,
+    },
+    {
+      'question': 'nǐ huì shuō yīngwén ma',
+      'options': ['Do you speak English?', 'Are you from China?', 'What\'s your name?'],
+      'correctIndex': 0,
+    },
+    {
+      'question': 'wǒ zài xuéxí zhōngwén',
+      'options': ['I am learning Chinese', 'What are you doing?', 'Where are you going?'],
+      'correctIndex': 0,
+    },
   ];
 
-   VideoGrid({super.key});
+  int? _selectedOptionIndex;
+
+  void _checkAnswer() {
+    if (_selectedOptionIndex != null) {
+      if (_selectedOptionIndex == _questions[_currentIndex]['correctIndex']) {
+        setState(() {
+          _score++;
+        });
+      }
+      if (_currentIndex < _questions.length - 1) {
+        _showNextQuestion();
+      } else {
+        setState(() {
+          _showScore = true;
+        });
+      }
+    }
+  }
+
+  void _showNextQuestion() {
+    setState(() {
+      _selectedOptionIndex = null;
+      _currentIndex++;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      itemCount: videos.length,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        childAspectRatio: 1.2, // Adjust this value to make the video bigger
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text('M A N D A R I N  Q U I Z'),
+        backgroundColor: Colors.pink[100], // Set app bar color
       ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            LinearProgressIndicator(
+              value: (_currentIndex + 1) / _questions.length,
+              minHeight: 10,
+              backgroundColor: Colors.grey[300],
+              valueColor: const AlwaysStoppedAnimation<Color>(Colors.pinkAccent),
+            ),
+            const SizedBox(height: 10.0),
+            Text(
+              'Question ${_currentIndex + 1}/${_questions.length}',
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 20.0),
+            _showScore ? _buildScoreCard() : _buildQuestionCard(),
+          ],
+        ),
+      ),
+    );
+  }
 
+  Widget _buildScoreCard() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Text(
+          'Quiz Completed!',
+          style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+          textAlign: TextAlign.center,
+        ),
+        const SizedBox(height: 20.0),
+        Text(
+          'Your Score: $_score/${_questions.length}',
+          style: const TextStyle(fontSize: 20.0),
+          textAlign: TextAlign.center,
+        ),
+      ],
+    );
+  }
 
-      itemBuilder: (BuildContext context, int index) {
-        return Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: <Widget>[
-              ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: VideoWidget(
-                  videoInfo: videos[index],
+  Widget _buildQuestionCard() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Text(
+          _questions[_currentIndex]['question'],
+          textAlign: TextAlign.center,
+          style: const TextStyle(fontSize: 24.0),
+        ),
+        const SizedBox(height: 20.0),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: List.generate(
+            _questions[_currentIndex]['options'].length,
+                (index) => Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    _selectedOptionIndex = index;
+                  });
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: _selectedOptionIndex == index ? Colors.pink[200] : Colors.cyan,
+                  padding: const EdgeInsets.symmetric(vertical: 12.0),
+                ),
+                child: Text(
+                  _questions[_currentIndex]['options'][index],
+                  style: const TextStyle(fontSize: 18.0),
                 ),
               ),
-
-              const SizedBox(height: 10),
-              Text(videos[index].name,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                  color: Colors.black54,
-                  fontSize:20)
-              ),
-
-            ],
+            ),
           ),
-        );
-      },
+        ),
+        const SizedBox(height: 30.0),
+        ElevatedButton(
+          onPressed: _selectedOptionIndex != null ? _checkAnswer : null,
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.yellow,
+          ),
+          child: Text(
+            _currentIndex < _questions.length - 1 ? 'Next Question' : 'Finish Quiz',
+          ),
+        )
+      ],
     );
-  }
-}
-
-class VideoInfo {
-  final String videoUrl;
-  final String name;
-
-
-  VideoInfo({
-    required this.videoUrl,
-    required this.name,
-
-  });
-}
-
-class VideoWidget extends StatefulWidget {
-  final VideoInfo videoInfo;
-
-  const VideoWidget({ required this.videoInfo, Key? key});
-
-  @override
-  _VideoWidgetState createState() => _VideoWidgetState();
-}
-
-class _VideoWidgetState extends State<VideoWidget> {
-  late YoutubePlayerController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = YoutubePlayerController(
-      initialVideoId: YoutubePlayer.convertUrlToId(widget.videoInfo.videoUrl)!,
-      flags: const YoutubePlayerFlags(
-        autoPlay: false,
-        mute: false,
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return YoutubePlayer(
-      controller: _controller,
-      showVideoProgressIndicator: true,
-      progressIndicatorColor: Colors.pink,
-      progressColors: const ProgressBarColors(
-        playedColor: Colors.pink,
-        handleColor: Colors.pink,
-      ),
-    );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _controller.dispose();
   }
 }

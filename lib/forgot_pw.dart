@@ -28,7 +28,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       showDialog(
           context: context,
           builder: (context) {
-            return AlertDialog(
+            return const AlertDialog(
               content: Text('Password reset link sent! check your email'),
             );
           }
@@ -57,16 +57,17 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
       body: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 100.0),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 100.0),
             child: Text(
                 'Enter Your Email we will send you a password reset link',
               style: TextStyle(color: Colors.black54,
+                  fontFamily: 'BebasNeue-Regular',
               fontSize: 20),
 
             ),
           ),
-          SizedBox(height:10),
+          const SizedBox(height:10),
 
           //EMAIL TEXTFIELD
           Padding(
@@ -75,11 +76,11 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
               controller: _emailController,
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.pinkAccent),
+                  borderSide: const BorderSide(color: Colors.pinkAccent),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.pinkAccent),
+                  borderSide: const BorderSide(color: Colors.pinkAccent),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 hintText: 'Email',
@@ -89,11 +90,11 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 ),
               ),
 
-          SizedBox(height:10),
+          const SizedBox(height:10),
 
           MaterialButton(
             onPressed: () => passwordReset(),
-            child: Text(
+            child: const Text(
               'Reset Password',
               style: TextStyle(color: Colors.white), // Set the text color to white
             ),

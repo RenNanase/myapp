@@ -18,24 +18,91 @@ dependencies:
   flutter_inappwebview: ^5.7.2
   audioplayers: ^6.0.0
   firebase_core: ^2.3.0
+  firebase_storage: ^11.6.2
+  flutter_launcher_icons: ^0.13.1
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^3.0.0
 
+flutter_icons:
+  android: true
+  image_path: "lib/assets/logo.png"
+
 flutter:
   uses-material-design: true
 
   assets:
     - lib/assets/fox.png
-    - lib/assets/water.png
-    - lib/assets/rice.png
-    - lib/assets/tea.png
-    - lib/assets/soup.png
-  
+    - lib/assets/trace2.jpg
+    - lib/assets/trace1.jpg
+    - lib/assets/hoc.jpg
+    - lib/assets/cc.jpg
+    - lib/assets/familymembers.jpg
+    - lib/assets/animal.jpg
+    - lib/assets/fruits.jpg
+    - lib/assets/colors.jpg
+    - lib/assets/number.jpg
+    - lib/assets/number.mp3
+    - lib/assets/word_puzzle/mother.jpg
+    - lib/assets/word_puzzle/cat.jpg
+    - lib/assets/word_puzzle/red.jpg
+    - lib/assets/word_puzzle/eight.jpg
+    - lib/assets/word_puzzle/apple.jpg
+    - lib/assets/word_puzzle/two.jpg
+    - lib/assets/word_puzzle/corn.jpg
+    - lib/assets/word_puzzle/watermelon.jpg
+    - lib/assets/word_puzzle/five.jpg
+    - lib/assets/word_puzzle/yellow.jpg
+    - lib/assets/word_puzzle/dog.jpg
+    - lib/assets/word_puzzle/goat.jpg
+    - lib/assets/word_puzzle/panda.jpg
+    - lib/assets/word_puzzle/pumpkin.jpg
+    - lib/assets/word_puzzle/cow.jpg
+    - lib/assets/word_puzzle/dragon.jpg
+    - lib/assets/word_puzzle/rat.jpg
+    - lib/assets/word_puzzle/tiger.jpg
+    - lib/assets/word_puzzle/purple.jpg
+    - lib/assets/word_puzzle/avocado.jpg
+    - lib/assets/word_puzzle/rabbit.jpg
+    - lib/assets/word_puzzle/banana.jpg
+    - lib/assets/word_puzzle/cherry.jpg
+    - lib/assets/word_puzzle/mango.jpg
+    - lib/assets/word_puzzle/mangosteen.jpg
+    - lib/assets/word_puzzle/pear.jpg
+    - lib/assets/word_puzzle/blue.jpg
+    - lib/assets/word_puzzle/pink.jpg
+    - lib/assets/word_puzzle/black.jpg
+    - lib/assets/word_puzzle/brown.jpg
+    - lib/assets/word_puzzle/white.jpg
+    - lib/assets/word_puzzle/father.jpg
+    - lib/assets/word_puzzle/grandmother.jpg
+    - lib/assets/word_puzzle/grandfather.jpg
+    - lib/assets/word_puzzle/brother.jpg
+    - lib/assets/word_puzzle/little brother.jpg
+    - lib/assets/word_puzzle/little sister.jpg
+    - lib/assets/word_puzzle/sister.jpg
+    - lib/assets/word_puzzle/nine.jpg
+    - lib/assets/word_puzzle/ten.jpg
+    - lib/assets/word_puzzle/seven.jpg
+    - lib/assets/word_puzzle/six.jpg
+    - lib/assets/word_puzzle/three.jpg
+    - lib/assets/word_puzzle/two.jpg
+    - lib/assets/word_puzzle/four.jpg
+    - lib/assets/word_puzzle/one.jpg
 
   fonts:
+    - family: AnnieUseYourTelescope-Regular
+      fonts:
+        - asset: lib/assets/AnnieUseYourTelescope-Regular.ttf
     - family: NotoSansSC
       fonts:
         - asset: lib/fonts/NotoSansSC-Light.ttf
+    - family: BebasNeue-Regular
+      fonts:
+        - asset: lib/assets/BebasNeue-Regular.ttf
+    - family: Wkwk-2O988
+      fonts:
+        - asset: lib/assets/Wkwk-2O988.otf

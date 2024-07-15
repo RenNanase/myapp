@@ -28,12 +28,12 @@ class _RegisterPageState extends State<RegisterPage> {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text('Error'),
-          content: Text('Passwords do not match.'),
+          title: const Text('Error'),
+          content: const Text('Passwords do not match.'),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text('OK'),
+              child: const Text('OK'),
             ),
           ],
         ),
@@ -45,11 +45,11 @@ class _RegisterPageState extends State<RegisterPage> {
       showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (context) => Center(child: CircularProgressIndicator()),
+        builder: (context) => const Center(child: CircularProgressIndicator()),
       );
 
       final UserCredential userCredential =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -63,7 +63,7 @@ class _RegisterPageState extends State<RegisterPage> {
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: Text('Verify your email'),
+            title: const Text('Verify your email'),
             content: Text(
               'A verification email has been sent to $email. Please verify your email before logging in.',
             ),
@@ -73,7 +73,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   Navigator.pop(context); // Close dialog
                   widget.onTap(); // Toggle to Login Page
                 },
-                child: Text('OK'),
+                child: const Text('OK'),
               ),
             ],
           ),
@@ -84,12 +84,12 @@ class _RegisterPageState extends State<RegisterPage> {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text('Error'),
+          title: const Text('Error'),
           content: Text(e.message ?? 'An error occurred'),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text('OK'),
+              child: const Text('OK'),
             ),
           ],
         ),
@@ -113,28 +113,33 @@ class _RegisterPageState extends State<RegisterPage> {
         child: SingleChildScrollView(
           child: Center(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              padding: EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).size.width * 0.1,
+                vertical: MediaQuery.of(context).size.height * 0.05,
+              ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(height: MediaQuery.of(context).size.height * 0.1),
-                  Text(
+                  const Text(
                     'Mandarin Mastery',
                     style: TextStyle(
-                      fontSize: 32,
+                      fontSize: 40,
+                      fontFamily: 'BebasNeue-Regular',
                       fontWeight: FontWeight.bold,
-                      color: Colors.pinkAccent,
+                      color: Colors.black,
                     ),
                   ),
-                  SizedBox(height: 16),
-                  Text(
+                  const SizedBox(height: 16),
+                  const Text(
                     'Register below with your details',
                     style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.pinkAccent,
+                      fontFamily: 'BebasNeue-Regular',
+                      fontSize: 20,
+                      color: Colors.black54,
                     ),
                   ),
-                  SizedBox(height: 32),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.05),
                   TextField(
                     controller: _emailTextController,
                     decoration: InputDecoration(
@@ -142,16 +147,16 @@ class _RegisterPageState extends State<RegisterPage> {
                       filled: true,
                       fillColor: Colors.white,
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white),
+                        borderSide: const BorderSide(color: Colors.white),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.pink),
+                        borderSide: const BorderSide(color: Colors.pink),
                         borderRadius: BorderRadius.circular(12),
                       ),
                     ),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   TextField(
                     controller: _passwordTextController,
                     obscureText: true,
@@ -160,16 +165,16 @@ class _RegisterPageState extends State<RegisterPage> {
                       filled: true,
                       fillColor: Colors.white,
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white),
+                        borderSide: const BorderSide(color: Colors.white),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.pink),
+                        borderSide: const BorderSide(color: Colors.pink),
                         borderRadius: BorderRadius.circular(12),
                       ),
                     ),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   TextField(
                     controller: _confirmPasswordTextController,
                     obscureText: true,
@@ -178,26 +183,26 @@ class _RegisterPageState extends State<RegisterPage> {
                       filled: true,
                       fillColor: Colors.white,
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white),
+                        borderSide: const BorderSide(color: Colors.white),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.pink),
+                        borderSide: const BorderSide(color: Colors.pink),
                         borderRadius: BorderRadius.circular(12),
                       ),
                     ),
                   ),
-                  SizedBox(height: 32),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.05),
                   GestureDetector(
                     onTap: signUp,
                     child: Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.all(16),
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
                         color: Colors.pinkAccent,
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      child: Center(
+                      child: const Center(
                         child: Text(
                           'Sign Up',
                           style: TextStyle(
@@ -209,11 +214,11 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
+                      const Text(
                         'Already have an account? ',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -230,7 +235,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             ),
                           );
                         },
-                        child: Text(
+                        child: const Text(
                           'Login now',
                           style: TextStyle(
                             color: Colors.pink,

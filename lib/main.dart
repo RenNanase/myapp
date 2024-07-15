@@ -12,6 +12,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.pink,
+      ),
       home: SplashScreen(),
     );
   }
@@ -20,42 +24,27 @@ class MyApp extends StatelessWidget {
 class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // Use Future.delayed to navigate after 4 seconds
-    Future.delayed(Duration(seconds: 4), () {
+    // Use Future.delayed to navigate after 6 seconds (changed from 4 to 6 seconds)
+    Future.delayed(const Duration(seconds: 6), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => LoginPage(onTap: () {  },)),
+        MaterialPageRoute(builder: (context) => LoginPage(onTap: () {})),
       );
     });
 
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 124, 9, 1), // Set the background color to red
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Spacer(), // Pushes the text and image apart
-          Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Mandarin Mastery',
-                  style: TextStyle(
-                    fontFamily: 'NotoSansSC', // Use the desired font family
-                    fontSize: 35,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-                SizedBox(height: 20), // Space between text and image
-              ],
-            ),
+      backgroundColor: Colors.pink[50], // Set the background color to pink[50]
+      body: const Center(
+        child: Text(
+          'Mandarin Mastery',
+          style: TextStyle(
+            fontFamily: 'BebasNeue-Regular', // Change to your desired font type
+            fontSize: 40,
+            fontWeight: FontWeight.bold,
+            color: Colors.black, // Set the text color to black for better contrast
           ),
-          Image.asset('lib/assets/fox.png'), // Ensure the path is correct
-        ],
+        ),
       ),
     );
   }
 }
-
-

@@ -28,7 +28,7 @@ Widget build(BuildContext context) {
       onTap:onTap,
       title: Text(
         text,
-        style: TextStyle(color: Colors.black54)
+        style: const TextStyle(color: Colors.black54)
 
       ),
     ),
